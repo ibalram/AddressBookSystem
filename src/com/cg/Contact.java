@@ -88,6 +88,10 @@ public class Contact {
 	public String getEmail() {
 		return email;
 	}
+	
+	public String getName() {
+		return firstName+" "+lastName;
+	}
 
 	public String toString() {
 		return String.format("Name: %s %s\nAddress: %s, %s, %s, %d\nPhone Number: %s\nEmail: %s", firstName, lastName,

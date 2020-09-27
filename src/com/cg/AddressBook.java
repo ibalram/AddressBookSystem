@@ -17,6 +17,21 @@ public class AddressBook {
 		addressList.add(contact);
 	}
 
+	public Contact searchByName(String name) {
+		for (int i = 0; i<addressList.size(); ++i) {
+			if (addressList.get(i).getName().contains(name))
+				return addressList.get(i);
+		}
+		return null;
+	}
+	
+	public void editContact(String name, Contact contact) {
+		for (int i = 0; i<addressList.size(); ++i) {
+			if (addressList.get(i).getName().contains(name))
+				addressList.set(i, contact);
+		}
+	}
+	
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		int count = 1;
