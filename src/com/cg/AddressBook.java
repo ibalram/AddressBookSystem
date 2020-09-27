@@ -18,27 +18,31 @@ public class AddressBook {
 	}
 
 	public Contact searchByName(String name) {
-		for (int i = 0; i<addressList.size(); ++i) {
+		for (int i = 0; i < addressList.size(); ++i) {
 			if (addressList.get(i).getName().contains(name))
 				return addressList.get(i);
 		}
 		return null;
 	}
-	
+
 	public void editContact(String name, Contact contact) {
-		for (int i = 0; i<addressList.size(); ++i) {
+		for (int i = 0; i < addressList.size(); ++i) {
 			if (addressList.get(i).getName().contains(name))
 				addressList.set(i, contact);
 		}
 	}
-	
+
 	public String toString() {
 		StringBuilder str = new StringBuilder();
 		int count = 1;
 		for (Contact contact : addressList) {
-			str.append(count+". "+contact.getFirstName()+" "+contact.getLastName()+"\n");
-			count++;
+			if (contact != null) {
+				str.append(count + ". " + contact.getFirstName() + " " + contact.getLastName() + "\n");
+				count++;
+			}
 		}
+		if (str.length() == 0)
+			return "\nNo contact found";
 		return str.toString();
 	}
 }

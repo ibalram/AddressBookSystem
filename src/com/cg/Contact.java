@@ -88,9 +88,9 @@ public class Contact {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public String getName() {
-		return firstName+" "+lastName;
+		return firstName + " " + lastName;
 	}
 
 	public String toString() {
