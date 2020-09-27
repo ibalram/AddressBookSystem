@@ -5,6 +5,7 @@ import java.util.*;
 public class AddressBookMain {
 
 	public static void main(String[] args) {
+		AddressBook addressBook  = new AddressBook();
 		try {
 			System.out.println("Welcome to Address Book Program");
 			System.out.println("--------------------------------");
@@ -30,8 +31,10 @@ public class AddressBookMain {
 			contact.setPhoneNumber(sc.nextLine());
 			System.out.println("Email:");
 			contact.setEmail(sc.nextLine());
-
-			System.out.println(contact);
+			
+			addressBook.addContact(contact);
+			System.out.println("\nContacts in Address Book:");
+			System.out.println(addressBook);
 
 		} catch (Exception e) {
 			System.out.println("Entered invalid values. Retry again");
