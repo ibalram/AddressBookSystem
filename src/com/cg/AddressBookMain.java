@@ -3,12 +3,112 @@ package com.cg;
 import java.util.*;
 
 public class AddressBookMain {
+	static Scanner sc = new Scanner(System.in);
+
+	public static void addAddressBookContacts(AddressBook addressBook) {
+		System.out.println("Enter the number of contacts to add: ");
+		int count = Integer.parseInt(sc.nextLine());
+		while (count-- > 0) {
+			Contact contact = new Contact();
+			System.out.println("First Name:");
+			contact.setFirstName(sc.nextLine());
+			System.out.println("Last Name:");
+			contact.setLastName(sc.nextLine());
+			String name = contact.getName();
+			if (addressBook.searchByName(name) != null) {
+				System.out.println("Contact for entered name is already exist");
+				break;
+			}
+			System.out.println("Address:");
+			contact.setAddress(sc.nextLine());
+			System.out.println("City:");
+			contact.setCity(sc.nextLine());
+			System.out.println("State:");
+			contact.setState(sc.nextLine());
+			System.out.println("Zip:");
+			contact.setZip(Integer.parseInt(sc.nextLine()));
+			System.out.println("Phone Number:");
+			contact.setPhoneNumber(sc.nextLine());
+			System.out.println("Email:");
+			contact.setEmail(sc.nextLine());
+			addressBook.addContact(contact);
+		}
+		System.out.println("\nContacts are added");
+	}
+
+	public static void editAddressBookContact(AddressBook addressBook) {
+		System.out.println("Enter name to edit contact: ");
+		System.out.println("First Name:");
+		String firstName = sc.nextLine();
+		System.out.println("Last Name:");
+		String lastName = sc.nextLine();
+		String name = firstName + " " + lastName;
+
+		Contact contact = addressBook.searchByName(name);
+		if (contact == null) {
+			System.out.println("Contact for given name is not found");
+			return;
+		}
+		System.out.println(
+				"Choose option to edit:\n1 First Name\n2 Last Name\n3 address\n4 city\n5 state\n6 zip\n7 phone number\n8 email \n9 skip");
+		int option = Integer.parseInt(sc.nextLine());
+		switch (option) {
+		case 1:
+			System.out.println("First Name:");
+			contact.setFirstName(sc.nextLine());
+			break;
+		case 2:
+			System.out.println("Last Name:");
+			contact.setLastName(sc.nextLine());
+			break;
+		case 3:
+			System.out.println("Address:");
+			contact.setAddress(sc.nextLine());
+			break;
+		case 4:
+			System.out.println("City:");
+			contact.setCity(sc.nextLine());
+			break;
+		case 5:
+			System.out.println("State:");
+			contact.setState(sc.nextLine());
+			break;
+		case 6:
+			System.out.println("Zip:");
+			contact.setZip(Integer.parseInt(sc.nextLine()));
+			break;
+		case 7:
+			System.out.println("Phone Number:");
+			contact.setPhoneNumber(sc.nextLine());
+			break;
+		case 8:
+			System.out.println("Email:");
+			contact.setEmail(sc.nextLine());
+			break;
+		default:
+			break;
+		}
+		addressBook.editContact(name, contact);
+		System.out.println("\nSuccessfully edited");
+		System.out.println(contact);
+	}
+
+	public static void deleteAddressBookContact(AddressBook addressBook) {
+		System.out.println("Enter name of the contact to delete: ");
+		System.out.println("First Name:");
+		String firstName = sc.nextLine();
+		System.out.println("Last Name:");
+		String lastName = sc.nextLine();
+
+		String name = firstName + " " + lastName;
+		Contact contact = addressBook.searchByName(name);
+		if (contact != null)
+			addressBook.editContact(name, null);
+		System.out.println("\nSuccessfully deleted contact");
+	}
 
 	public static void main(String[] args) {
 		AddressBook addressBook = new AddressBook();
-		Scanner sc = new Scanner(System.in);
-		Contact contact;
-		String name, firstName, lastName;
 		int option;
 		try {
 			boolean repeat = true;
@@ -20,105 +120,13 @@ public class AddressBookMain {
 				option = Integer.parseInt(sc.nextLine());
 				switch (option) {
 				case 1:
-					System.out.println("Enter the number of contacts to add: ");
-					int count = Integer.parseInt(sc.nextLine());
-					while (count-- > 0) {
-						contact = new Contact();
-						System.out.println("First Name:");
-						contact.setFirstName(sc.nextLine());
-						System.out.println("Last Name:");
-						contact.setLastName(sc.nextLine());
-
-						name = contact.getName();
-						if (addressBook.searchByName(name) != null) {
-							System.out.println("Contact for entered name is already exist");
-							break;
-						}
-						System.out.println("Address:");
-						contact.setAddress(sc.nextLine());
-						System.out.println("City:");
-						contact.setCity(sc.nextLine());
-						System.out.println("State:");
-						contact.setState(sc.nextLine());
-						System.out.println("Zip:");
-						contact.setZip(Integer.parseInt(sc.nextLine()));
-						System.out.println("Phone Number:");
-						contact.setPhoneNumber(sc.nextLine());
-						System.out.println("Email:");
-						contact.setEmail(sc.nextLine());
-
-						addressBook.addContact(contact);
-					}
-					System.out.println("\nContacts are added");
+					addAddressBookContacts(addressBook);
 					break;
 				case 2:
-					System.out.println("Enter name to edit contact: ");
-					System.out.println("First Name:");
-					firstName = sc.nextLine();
-					System.out.println("Last Name:");
-					lastName = sc.nextLine();
-					name = firstName + " " + lastName;
-					
-					contact = addressBook.searchByName(name);
-					if (contact == null) {
-						System.out.println("Contact for given name is not found");
-						break;
-					}
-					System.out.println(
-							"Choose option to edit:\n1 First Name\n2 Last Name\n3 address\n4 city\n5 state\n6 zip\n7 phone number\n8 email \n9 skip");
-					option = Integer.parseInt(sc.nextLine());
-					switch (option) {
-					case 1:
-						System.out.println("First Name:");
-						contact.setFirstName(sc.nextLine());
-						break;
-					case 2:
-						System.out.println("Last Name:");
-						contact.setLastName(sc.nextLine());
-						break;
-					case 3:
-						System.out.println("Address:");
-						contact.setAddress(sc.nextLine());
-						break;
-					case 4:
-						System.out.println("City:");
-						contact.setCity(sc.nextLine());
-						break;
-					case 5:
-						System.out.println("State:");
-						contact.setState(sc.nextLine());
-						break;
-					case 6:
-						System.out.println("Zip:");
-						contact.setZip(Integer.parseInt(sc.nextLine()));
-						break;
-					case 7:
-						System.out.println("Phone Number:");
-						contact.setPhoneNumber(sc.nextLine());
-						break;
-					case 8:
-						System.out.println("Email:");
-						contact.setEmail(sc.nextLine());
-						break;
-					default:
-						break;
-					}
-					addressBook.editContact(name, contact);
-					System.out.println("\nSuccessfully edited");
-					System.out.println(contact);
+					editAddressBookContact(addressBook);
 					break;
 				case 3:
-					System.out.println("Enter name of the contact to delete: ");
-					System.out.println("First Name:");
-					firstName = sc.nextLine();
-					System.out.println("Last Name:");
-					lastName = sc.nextLine();
-
-					name = firstName + " " + lastName;
-					contact = addressBook.searchByName(name);
-					if (contact != null)
-						addressBook.editContact(name, null);
-					System.out.println("\nSuccessfully deleted contact");
+					deleteAddressBookContact(addressBook);
 					break;
 				case 4:
 					System.out.println(addressBook);
